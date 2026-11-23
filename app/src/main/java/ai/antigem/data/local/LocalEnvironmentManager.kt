@@ -82,7 +82,7 @@ object LocalEnvironmentManager {
     val ROOTFS_MIRRORS: List<RootfsMirror> = if (IS_X86_64) listOf(RootfsMirror.GITHUB) else RootfsMirror.values().toList()
     const val HUGGINGFACE_ROOTFS_URL = "https://huggingface.co/datasets/santoshkurmi/rootfs-v2/resolve/main/bootrapz_2026-11-19.zip"
     // pages where the user can download the same zip by hand (then install it with "From a ZIP file")
-    const val GITHUB_ROOTFS_PAGE = "https://github.com/Santoshkurmi/antigem/releases/tag/rootfs-v2"
+    const val GITHUB_ROOTFS_PAGE = "https://github.com/hexvora777/TerMo/releases/tag/rootfs-v2"
     const val HUGGINGFACE_ROOTFS_PAGE = "https://huggingface.co/datasets/santoshkurmi/rootfs-v2/tree/main"
 
     // a mirror without this CPU's rootfs (Hugging Face on x86_64) falls back to GitHub

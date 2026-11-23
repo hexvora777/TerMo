@@ -17,7 +17,7 @@
 
 <br>
 
-[![Join the AntiGem Discord](https://img.shields.io/badge/Join%20the%20AntiGem%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/pJvvTDTc6G)
+[![Join the TerMo Discord](https://img.shields.io/badge/Join%20the%20AntiGem%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/pJvvTDTc6G)
 
 **Get help, share what you build, request features and hear about new releases first.**
 
@@ -28,18 +28,18 @@
 </div>
 
 > [!IMPORTANT]
-> ### AntiGem has a new home: `ai.antigem`
-> From **v2.0.0**, AntiGem is released under its own package name, **`ai.antigem`**. The old app was installed as `com.termux`, the Termux project's package name, which we used only so Termux packages could run at full speed. Shipping AntiGem under another project's name wasn't right, and it also stopped AntiGem from being installed next to the real Termux app. AntiGem now rewrites `com.termux` to `ai.antigem` inside each package as it installs (both names are 10 characters, so it is swapped byte for byte), with no proot and no slowdown.
+> ### TerMo is here: `ai.antigem`
+> From **v2.0.0**, TerMo is released under its own package name, **`ai.antigem`**. The old app was installed as `com.termux`, the Termux project's package name, which we used only so Termux packages could run at full speed. Shipping AntiGem under another project's name wasn't right, and it also stopped AntiGem from being installed next to the real Termux app. AntiGem now rewrites `com.termux` to `ai.antigem` inside each package as it installs (both names are 10 characters, so it is swapped byte for byte), with no proot and no slowdown.
 >
 > - **The old app keeps working.** Its last version is **v1.2.1** and it gets no more updates. New features and fixes only come to `ai.antigem`.
 > - **You can use both.** The new app installs next to the old one; nothing in the old one is touched. Move over whenever you're ready.
 > - **To move your setup:**
 >   1. In the old app: **Settings → Backups & Restore → Back up environment** (tick *Include SSH keys and sign-ins* to keep your logins; never share that file). It is saved to `Download/Antigem/backups`.
->   2. Install **`AntiGem-v2.x.x.apk`** from [Releases](https://github.com/santoshkurmi/antigem/releases) (version 2.0.0 or newer; versions below 2.0.0 are the old app).
+>   2. Install **`TerMo-v2.x.x.apk`** from [Releases](https://github.com/hexvora777/TerMo/releases) (version 2.0.0 or newer; versions below 2.0.0 are the old app).
 >   3. On the new app's setup screen, choose **From a ZIP file** and pick your backup. Every `com.termux` path is rewritten for `ai.antigem` while it restores.
 >   4. When everything works, uninstall the old app, and delete the backup if it contains your sign-ins.
 >
-> The new app is brand new: a few packages, the Linux desktop (X11) and some `termux-*` commands are still being tested. If something breaks, please [open an issue](https://github.com/santoshkurmi/antigem/issues).
+> The new app is brand new: a few packages, the Linux desktop (X11) and some `termux-*` commands are still being tested. If something breaks, please [open an issue](https://github.com/hexvora777/TerMo/issues).
 
 ---
 
@@ -233,7 +233,7 @@ On a rooted phone (Magisk, KernelSU or APatch), the agents and the terminal can 
 - Desktop and mobile modes, a steady browser identity that keeps Google sign-in working, and built-in Eruda DevTools.
 
 ### Connect to PC (with AntiGem for VS Code)
-Use the agents running on your PC from your phone. [AntiGem for VS Code](https://github.com/Santoshkurmi/antigem_vscode_extension) runs them on the PC, and the app becomes a second screen for the same chats.
+Use the agents running on your PC from your phone. [AntiGem for VS Code](https://github.com/hexvora777/TerMo_vscode_extension) runs them on the PC, and the app becomes a second screen for the same chats.
 - **Same chats on both:** start a chat in VS Code and continue it on the phone, or the other way round. Replies stream live on both, and every agent (Antigravity, Claude Code, Codex, OpenCode) works, with its subagents, images and files.
 - **Pair once, no typing of addresses:** in VS Code open **Settings → Connect phone → Start pairing**. On the phone, turn on **Settings → Connect to PC**, tap **Add a PC**, pick the PC from **Nearby PCs** and type the 6-digit code it shows. If the PC is not listed (guest Wi-Fi), type the address shown on the PC.
 - **Switch in one tap:** the PC button in the side bar lists your paired PCs; pick one, or go back to **Use this phone**. Several PCs can be paired.
@@ -256,7 +256,7 @@ Use the agents running on your PC from your phone. [AntiGem for VS Code](https:/
 
 ## Download
 
-Get the latest APK from [Releases](https://github.com/santoshkurmi/antigem/releases). There is one app, with the package name `ai.antigem`. It sets up its own Linux environment from the Termux packages, so it doesn't need the Termux app, and it can be installed next to it.
+Get the latest APK from [Releases](https://github.com/hexvora777/TerMo/releases). There is one app, with the package name `ai.antigem`. It sets up its own Linux environment from the Termux packages, so it doesn't need the Termux app, and it can be installed next to it.
 
 **Server mode** (a mode, not another build): the bridge, the agents (`agy`, Claude Code, OpenCode, Codex), your projects and the terminal run on **your own server (a VPS)**, and the phone is only the screen. Switch it on in **Settings → Where agents run**. See [Server mode](#server-mode-run-it-on-a-vps) below.
 
@@ -421,7 +421,7 @@ The Backups & Restore screen is for the phone's own data and is hidden in Server
 **Requirements:** JDK 17+, Android SDK (API 35, Build Tools 35+) and Go 1.23+ for the bridge.
 
 ```bash
-git clone https://github.com/santoshkurmi/antigem.git
+git clone https://github.com/hexvora777/TerMo.git
 cd antigem
 
 # Build the termux variant
@@ -462,10 +462,10 @@ AntiGem comes in parts that link to each other:
 
 | Project | What it is | Repository |
 |---|---|---|
-| **AntiGem** (Android app) | The coding agents, a Linux terminal, an editor and a browser on your phone. With **Connect to PC** it also uses the agents of a PC that runs AntiGem for VS Code. | [Santoshkurmi/antigem](https://github.com/Santoshkurmi/antigem) |
-| **AntiGem for VS Code** | The same agents and chat in a VS Code sidebar. Its **Connect phone** lets the app on your phone use them. | [Santoshkurmi/antigem_vscode_extension](https://github.com/Santoshkurmi/antigem_vscode_extension) · install: [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=santoshkurmi.antigem-vscode-extension), [Open VSX](https://open-vsx.org/extension/santoshkurmi/antigem-vscode-extension) |
-| **AntiGem Browser Bridge** (Chrome extension) | Lets agents in AntiGem for VS Code use your real Chrome. Not needed by the Android app, which has its own browser. | [Santoshkurmi/antigem-browser-extension](https://github.com/Santoshkurmi/antigem-browser-extension) · not in the Chrome Web Store yet: installed with *Load unpacked* from AntiGem for VS Code |
-| **AntiGem mini apps** | The official mini apps (Habits, Pocket Notes, Sky, Gallery, Focus, Dev Toolbox, Explorer, Showcase), installed from **Mini Apps → Get apps**. Also the guide to building and publishing your own: real app sources using every SDK feature, signed `.agapp` packages, the catalog format and the `agapp.mjs publish` tool. | [Santoshkurmi/antigem_mini_apps](https://github.com/Santoshkurmi/antigem_mini_apps) |
+| **AntiGem** (Android app) | The coding agents, a Linux terminal, an editor and a browser on your phone. With **Connect to PC** it also uses the agents of a PC that runs AntiGem for VS Code. | [hexvora777/TerMo](https://github.com/hexvora777/TerMo) |
+| **AntiGem for VS Code** | The same agents and chat in a VS Code sidebar. Its **Connect phone** lets the app on your phone use them. | [hexvora777/TerMo_vscode_extension](https://github.com/hexvora777/TerMo_vscode_extension) · install: [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=santoshkurmi.antigem-vscode-extension), [Open VSX](https://open-vsx.org/extension/santoshkurmi/antigem-vscode-extension) |
+| **AntiGem Browser Bridge** (Chrome extension) | Lets agents in AntiGem for VS Code use your real Chrome. Not needed by the Android app, which has its own browser. | [hexvora777/TerMo-browser-extension](https://github.com/hexvora777/TerMo-browser-extension) · not in the Chrome Web Store yet: installed with *Load unpacked* from AntiGem for VS Code |
+| **AntiGem mini apps** | The official mini apps (Habits, Pocket Notes, Sky, Gallery, Focus, Dev Toolbox, Explorer, Showcase), installed from **Mini Apps → Get apps**. Also the guide to building and publishing your own: real app sources using every SDK feature, signed `.agapp` packages, the catalog format and the `agapp.mjs publish` tool. | [hexvora777/TerMo_mini_apps](https://github.com/hexvora777/TerMo_mini_apps) |
 This is not polished app they are only for showcase only not for use and will be removed in future.
 
 ---
@@ -483,16 +483,16 @@ Issues, ideas and pull requests are welcome. For help, join the [Discord server]
 
 ## Analytics
 
-AntiGem uses [TelemetryDeck](https://telemetrydeck.com) only to count how many people use the app. It records app opens, an anonymous install ID, session counts, and general device details (phone model, Android version, app version). It does **not** collect chats, prompts, code, files, terminal output, account emails or API keys. Debug builds are marked as test data.
+TerMo uses [TelemetryDeck](https://telemetrydeck.com) only to count how many people use the app. It records app opens, an anonymous install ID, session counts, and general device details (phone model, Android version, app version). It does **not** collect chats, prompts, code, files, terminal output, account emails or API keys. Debug builds are marked as test data.
 
 ## Disclaimer
 
-AntiGem is an independent project. It is not affiliated with, endorsed by or sponsored by Google, Anthropic, OpenAI, OpenCode or any other AI provider. Antigravity, Claude, Claude Code, Codex and other product names are trademarks of their owners and are used here only to say which tools the app works with.
+TerMo is an independent project. It is not affiliated with, endorsed by or sponsored by Google, Anthropic, OpenAI, OpenCode or any other AI provider. Antigravity, Claude, Claude Code, Codex and other product names are trademarks of their owners and are used here only to say which tools the app works with.
 
 AntiGem does not include these tools. You install each one from its official source and sign in with that tool's own login, and the app gives you an interface on top of it. Your use of each tool and account is covered by that provider's own terms, the same as when you use the tool from a terminal.
 
-AntiGem is free software, provided as is, without warranty, as described in the [license](LICENSE).
+TerMo is free software, provided as is, without warranty, as described in the [license](LICENSE).
 
 ## License
 
-Copyright (C) 2026 Santosh Kurmi. Licensed under the [GNU General Public License v3.0](LICENSE) or any later version.
+Copyright (C) 2026 Mohanraj Murugesan (@hexvora777). Licensed under the [GNU General Public License v3.0](LICENSE) or any later version.

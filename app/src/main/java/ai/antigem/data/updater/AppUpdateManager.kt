@@ -17,7 +17,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "AppUpdateManager"
-private const val DEFAULT_VERSION_URL = "https://raw.githubusercontent.com/santoshkurmi/antigem/standalone/version.json"
+private const val DEFAULT_VERSION_URL = "https://raw.githubusercontent.com/hexvora777/TerMo/main/version.json"
 // the updater's prefs (UpdateCheckWorker keeps its "last notified" version there too)
 private const val UPDATE_PREFS = "app_update_prefs"
 private const val KEY_BETA_UPDATES = "beta_updates"
@@ -157,14 +157,14 @@ class AppUpdateManager(private val context: Context) {
     }
 
     private fun apkUrl(versionName: String, suffix: String) =
-        "https://github.com/santoshkurmi/antigem/releases/download/v$versionName/TerMo-v$versionName$suffix.apk"
+        "https://github.com/hexvora777/TerMo/releases/download/v$versionName/TerMo-v$versionName$suffix.apk"
 
     /** Whether the release file is on GitHub (a release is published before CI has uploaded its APKs). */
     private fun isPublished(url: String): Boolean = try {
         val probe = Request.Builder()
             .url(url)
             .head()
-            .header("User-Agent", "antiGem-Updater/${BuildConfig.VERSION_NAME}")
+            .header("User-Agent", "TerMo-Updater/${BuildConfig.VERSION_NAME}")
             .build()
         httpClient.newCall(probe).execute().use { it.isSuccessful || it.isRedirect }
     } catch (_: Exception) {

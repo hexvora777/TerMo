@@ -120,7 +120,7 @@ launcher) or **stopped**.
 
 | Choice | What it is | When to pick it |
 |---|---|---|
-| **AntiGem Ubuntu (prebuilt)** | Ubuntu 24.04 with sudo, git, curl, Node.js, Python and the Android fixes already set up, from AntiGem's GitHub release | **Recommended** once it is published (the option says *not published yet* until then). Quickest start. |
+| **TerMo Ubuntu (prebuilt)** | Ubuntu 24.04 with sudo, git, curl, Node.js, Python and the Android fixes already set up, from AntiGem's GitHub release | **Recommended** once it is published (the option says *not published yet* until then). Quickest start. |
 | **Ubuntu 24.04 LTS (Noble)** | Official *Ubuntu Base* from `cdimage.ubuntu.com`, about 30 MB. AntiGem picks the newest point release (24.04.5 …) and checks it against Ubuntu's `SHA256SUMS` | **Recommended** otherwise: long support, what most tools are tested on. |
 | Ubuntu 26.04 LTS | The newest LTS | When you want newer packages. |
 | Ubuntu 22.04 LTS (Jammy) | The older LTS | Only for tools that need it. |
@@ -455,7 +455,7 @@ caches …), AntiGem's own files, logs, the apt lists and cache, AntiGem's sudo 
 creates the user again (with Ubuntu's usual home files) and runs `apt update` before installing packages.
 
 **To publish it as AntiGem's prebuilt Ubuntu:** upload both files to the GitHub release **`chroot-ubuntu-v1`** of
-`Santoshkurmi/antigem`. The setup page's **AntiGem Ubuntu (prebuilt)** source then turns on by itself and checks the
+`hexvora777/TerMo`. The setup page's **TerMo Ubuntu (prebuilt)** source then turns on by itself and checks the
 download against the `.sha256`. Make the image from a fresh install with the packages you want in it, not from your
 daily one.
 
