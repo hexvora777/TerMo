@@ -360,11 +360,11 @@ fun JarvisSettingsSectionPage(page: JarvisSettingsPage, cardBg: Color, cardBorde
                     val headset by P.headsetButton.state.collectAsState()
                     JSwitch("Headset button", "With hands-free on: one press talks (or sends), two presses stop. Works while no music app holds the button.", headset) { P.headsetButton.set(it) }
                     JHint("Quick Settings tile: pull down the notification shade, edit the tiles and add “Jarvis” to talk from anywhere with one tap. " +
-                        "While AntiGem runs in the background it listens without opening the app.")
-                    JHint("Also: long-press the AntiGem icon → Jarvis, or put Jarvis on the home screen.")
+                        "While TerMo runs in the background it listens without opening the app.")
+                    JHint("Also: long-press the TerMo icon → Jarvis, or put Jarvis on the home screen.")
                     OutlinedButton(onClick = {
                         if (!ai.antigem.data.jarvis.JarvisLauncher.pinShortcut(context)) {
-                            Toast.makeText(context, "This launcher can't add shortcuts. Long-press the AntiGem icon instead.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "This launcher can't add shortcuts. Long-press the TerMo icon instead.", Toast.LENGTH_LONG).show()
                         }
                     }) { Text("Add to home screen") }
                 }
@@ -652,9 +652,9 @@ fun JarvisSettingsSectionPage(page: JarvisSettingsPage, cardBg: Color, cardBorde
                     }
                     JSwitch(
                         "Float over other apps",
-                        "Outside AntiGem the orb floats over any app: tap it to talk, long-press it for the Jarvis panel. While Jarvis " +
+                        "Outside TerMo the orb floats over any app: tap it to talk, long-press it for the Jarvis panel. While Jarvis " +
                             "listens or speaks, its card shows at the bottom of the screen. Drag the orb onto the ✕ at the bottom to hide " +
-                            "it until you talk to Jarvis in AntiGem again. Hidden during Antigravity voice calls.",
+                            "it until you talk to Jarvis in TerMo again. Hidden during Antigravity voice calls.",
                         floating
                     ) { on ->
                         P.floating.set(on)
@@ -662,7 +662,7 @@ fun JarvisSettingsSectionPage(page: JarvisSettingsPage, cardBg: Color, cardBorde
                         if (on && !canDraw) openOverlaySettings()
                     }
                     if (floating && !canDraw) {
-                        JHint("Needs “Display over other apps” for AntiGem.")
+                        JHint("Needs “Display over other apps” for TerMo.")
                         OutlinedButton(onClick = openOverlaySettings) { Text("Allow") }
                     }
                     val haptics by P.haptics.state.collectAsState()

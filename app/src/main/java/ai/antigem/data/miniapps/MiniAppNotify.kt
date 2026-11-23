@@ -197,7 +197,7 @@ object MiniAppNotify {
         val ongoing = p.optBoolean("ongoing")
         val silent = p.optBoolean("silent")
         val channel = p.optString("channel").takeIf { it.isNotBlank() }?.let { c ->
-            channelId(app.id, c).also { if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(it) == null) throw MiniAppError("NotFoundError", "No channel \"$c\": create it with AntiGem.notify.channel()") }
+            channelId(app.id, c).also { if (Build.VERSION.SDK_INT >= 26 && nm.getNotificationChannel(it) == null) throw MiniAppError("NotFoundError", "No channel \"$c\": create it with TerMo.notify.channel()") }
         } ?: when { silent -> CHANNEL_STATUS; ongoing -> CHANNEL_ONGOING; else -> CHANNEL_ALERTS }
         val title = p.optString("title").take(200)
         val body = p.optString("body").take(4000)
@@ -312,7 +312,7 @@ object MiniAppNotify {
             }
         }
 
-        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) throw MiniAppError("NotAllowedError", "Notifications are turned off for AntiGem in Android settings")
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) throw MiniAppError("NotAllowedError", "Notifications are turned off for TerMo in Android settings")
         nm.notify(tagOf(app.id, tag), req, b.build())
         lastShown["${app.id}\u0000$tag"] = JSONObject(p.toString()).put("id", tag)
         return JSONObject().put("id", tag)

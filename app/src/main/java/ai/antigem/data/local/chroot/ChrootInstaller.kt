@@ -240,7 +240,7 @@ object ChrootInstaller {
             is ChrootSource.Official -> resolveOfficial(source.release)
             is ChrootSource.Prebuilt -> {
                 val shaText = httpText("${prebuiltUrl()}.sha256")
-                    ?: throw InstallError("AntiGem's prebuilt Ubuntu is not published yet ($PREBUILT_PAGE). Pick Official Ubuntu instead.")
+                    ?: throw InstallError("TerMo's prebuilt Ubuntu is not published yet ($PREBUILT_PAGE). Pick Official Ubuntu instead.")
                 prebuiltUrl() to shaText.trim().split(Regex("\\s+")).firstOrNull()
             }
             is ChrootSource.Url -> source.url to source.sha256?.trim()?.lowercase()?.takeIf { it.matches(Regex("^[0-9a-f]{64}$")) }
@@ -259,7 +259,7 @@ object ChrootInstaller {
         val file = File(dir, "rootfs.$ext")
         val part = File(dir, "rootfs.$ext.part")
         val response = try {
-            http.newCall(Request.Builder().url(url).header("User-Agent", "AntiGem-Chroot").build()).execute()
+            http.newCall(Request.Builder().url(url).header("User-Agent", "TerMo-Chroot").build()).execute()
         } catch (e: IOException) {
             throw InstallError("Download failed: ${e.message}")
         }
@@ -311,7 +311,7 @@ object ChrootInstaller {
     }
 
     private fun httpText(url: String): String? = try {
-        http.newCall(Request.Builder().url(url).header("User-Agent", "AntiGem-Chroot").build()).execute().use {
+        http.newCall(Request.Builder().url(url).header("User-Agent", "TerMo-Chroot").build()).execute().use {
             if (it.isSuccessful) it.body?.string() else null
         }
     } catch (_: Exception) {
@@ -394,7 +394,7 @@ object ChrootInstaller {
         val f = ChrootManager.scan(context, req.path).firstOrNull { it.path == req.path }
         restoredBackup = f?.takeIf { it.hasManifest && it.manifest["INSTALLING"] == null && !it.manifest["USER"].isNullOrBlank() }
         restoredBackup?.let {
-            log("This is an AntiGem backup of ${it.manifest["NAME"] ?: "an Ubuntu chroot"} (user ${it.manifest["USER"]}): " +
+            log("This is an TerMo backup of ${it.manifest["NAME"] ?: "an Ubuntu chroot"} (user ${it.manifest["USER"]}): " +
                 "its user, home, settings and packages are kept; the user moves to this app's uid.")
         }
     }
@@ -509,7 +509,7 @@ object ChrootInstaller {
 
     fun sourceLabel(source: ChrootSource): String = when (source) {
         is ChrootSource.Official -> "official ${source.release.label}"
-        is ChrootSource.Prebuilt -> "AntiGem prebuilt ($PREBUILT_TAG)"
+        is ChrootSource.Prebuilt -> "TerMo prebuilt ($PREBUILT_TAG)"
         is ChrootSource.Url -> "url ${source.url.take(200)}"
         is ChrootSource.LocalFile -> "file ${source.displayName.take(120)}"
     }

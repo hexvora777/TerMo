@@ -18,7 +18,7 @@ object JarvisAppGuide {
     private val entries: List<Entry> by lazy {
         listOf(
             Entry("overview", listOf("what is", "antigem", "app", "features", "can you", "overview"), """
-AntiGem runs two coding agents on the phone: Antigravity (agy, Google) and Claude Code (Anthropic's claude CLI), each in normal chats.
+TerMo runs two coding agents on the phone: Antigravity (agy, Google) and Claude Code (Anthropic's claude CLI), each in normal chats.
 It also has a Linux terminal, a code editor (IDE) with Git, an in-app browser, notes and to-dos, built-in MCP servers, and custom
 plugins. Screens: chat, ide, terminal, browser, notes (jarvis_open_screen). Settings: open the chat list (the side drawer of the
 chat screen) and tap Settings at its bottom left, or ask Jarvis to open a settings page (jarvis_open_settings).
@@ -48,7 +48,7 @@ Plugin Developer, Mini App Developer (build, test and sign mini apps), Theme, St
 Settings → Jarvis → Setup has a one-tap Add button.
 """.trim()),
             Entry("plugins", listOf("plugin", "extension", "skill", "install plugin", "/plu"), """
-Custom AntiGem plugins (Settings → Custom AntiGem Plugins) add MCP tools and skills. Install from a ZIP or a GitHub repository;
+Custom TerMo plugins (Settings → Custom TerMo Plugins) add MCP tools and skills. Install from a ZIP or a GitHub repository;
 enable, disable, reload and update without restarting. In a chat, type /plu: to use a plugin or one of its skills.
 Your own slash commands that expand into full prompts are in Settings → Slash Commands.
 """.trim()),
@@ -82,7 +82,7 @@ Notes and to-do lists are on the notes screen and in the floating bubble. Agents
             Entry("appearance", listOf("theme", "dark", "light", "font", "size", "appearance", "look", "bubble", "switcher", "floating"), """
 Settings → Themes: the mode (Light, Dark or Auto), and a gallery to pick one light theme and one dark theme (light:
 Porcelain (default), Lavender, Sky (these three recommended), Sakura, Mint, Linen, Paper, Solarized Light; dark: Midnight Aurora (default),
-Obsidian, Graphite (these three recommended), Midnight, High Contrast, Amber Night (AntiGem's original dark look), Mocha, Neon City,
+Obsidian, Graphite (these three recommended), Midnight, High Contrast, Amber Night (TerMo's original dark look), Mocha, Neon City,
 Aurora, Nord, Dracula, Velvet, Deep Ocean, Ember, Forest, Sunset, Solarized Dark, plus custom ones; the chat, the IDE editor, the terminal and the code blocks all follow it). Settings → Appearance: chat font size, Group Agent Steps (on by default: runs of thinking and tool calls fold into one
 progress pill once a run has "Fold after" steps, 2+ by default, 1+ = every run; off: every step is a tile), message stats (token/cache/time under replies) on or off, the chat header icons, the floating switcher (always on: its layout, items and their order) and the separate terminal app icon.
 "Vibrate when a chat finishes" is in Settings → Agents. Grouping the chat list by project is the folder icon at the top of the
@@ -97,7 +97,7 @@ Protection has an uninstall shield and a guard against Clear data. App updates a
             Entry("server_mode", listOf("server", "vps", "remote", "ssh server", "server mode"), """
 Server mode (Settings → Servers): the bridge, the Antigravity hub, Claude Code, projects and the shell run on your own Linux server,
 the phone only shows the UI. Turn on Remote server (SSH), enter the bridge and hub addresses, SSH host, user and key, Save, Reopen.
-The full guide is docs/remote-server.md in the AntiGem repository.
+The full guide is docs/remote-server.md in the TerMo repository.
 """.trim()),
             Entry("jarvis", listOf("jarvis", "voice", "hands-free", "hands free", "wake", "trigger", "orb", "listen", "send", "quiet", "headset", "tile"), """
 Jarvis (Settings → Jarvis): talk to the app hands-free. Triggers: tap the orb, the notification's Talk button, the Quick Settings

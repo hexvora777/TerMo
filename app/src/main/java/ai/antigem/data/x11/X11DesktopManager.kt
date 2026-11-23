@@ -349,7 +349,7 @@ object X11DesktopManager {
     /** Downloads AntiGem's Termux:X11 build and opens the system installer. */
     fun installApp() = runTask(Task.APP) {
         val url = FORK_APK_URL
-        appendLog("Downloading AntiGem's Termux:X11 build…")
+        appendLog("Downloading TerMo's Termux:X11 build…")
         appendLog(url)
         val dir = File(appContext.externalCacheDir ?: appContext.cacheDir, "x11").apply { mkdirs() }
         val apk = File(dir, "termux-x11.apk")
@@ -359,7 +359,7 @@ object X11DesktopManager {
         if (opened) {
             appendLog("Opened the installer. Confirm the install there.")
         } else {
-            report("Allow AntiGem to install apps (the settings page that just opened), then tap Install again.", isError = true)
+            report("Allow TerMo to install apps (the settings page that just opened), then tap Install again.", isError = true)
         }
     }
 
@@ -376,20 +376,20 @@ object X11DesktopManager {
 
     fun installCompanion() = runTask(Task.COMPANION) {
         if (chroot != null) {
-            appendLog("Not needed in the Ubuntu chroot: AntiGem starts the X server itself.")
+            appendLog("Not needed in the Ubuntu chroot: TerMo starts the X server itself.")
             return@runTask
         }
         val enableRepo = "apt-get update && apt-get install -y $KEEP_CONFIGS x11-repo && apt-get update"
-        val deb = File(LocalEnvironmentManager.getTmpDir(appContext), "$COMPANION_ANTIGEM.deb")
-        appendLog("Finding the latest $COMPANION_ANTIGEM package…")
+        val deb = File(LocalEnvironmentManager.getTmpDir(appContext), "$COMPANION_TERMO.deb")
+        appendLog("Finding the latest $COMPANION_TERMO package…")
         val url = latestForkDebUrl()
         appendLog(url)
-        download(url, deb) { pct -> _state.update { it.copy(progress = "Downloading $COMPANION_ANTIGEM… $pct") } }
+        download(url, deb) { pct -> _state.update { it.copy(progress = "Downloading $COMPANION_TERMO… $pct") } }
         appendLog("✓ Downloaded ${deb.length() / 1024} KB")
         // A path (not a name) makes apt install the file and pull its dependency (xkeyboard-config) from x11-repo;
         // it also removes termux-x11-nightly, which it conflicts with
         val command = "$enableRepo && apt-get install -y $KEEP_CONFIGS '${deb.absolutePath}'; s=\$?; rm -f '${deb.absolutePath}'; exit \$s"
-        shellTask("Installing $COMPANION_ANTIGEM…", command, 1800)
+        shellTask("Installing $COMPANION_TERMO…", command, 1800)
     }
 
     // ---------------- step 3: a desktop ----------------
@@ -759,7 +759,7 @@ object X11DesktopManager {
     private fun appendLog(line: String) =
         _state.update { it.copy(log = (it.log + line).takeLast(400)) }
 
-    private fun userAgent() = "AntiGem/${BuildConfig.VERSION_NAME}"
+    private fun userAgent() = "TerMo/${BuildConfig.VERSION_NAME}"
 
     /** The companion .deb of the fork's latest release (its file name carries the version). */
     private suspend fun latestForkDebUrl(): String = withContext(Dispatchers.IO) {
@@ -775,7 +775,7 @@ object X11DesktopManager {
                 .firstOrNull { it.optString("name").let { n -> n.startsWith(COMPANION_ANTIGEM) && n.endsWith("-all.deb") } }
                 ?.optString("browser_download_url")
                 ?.takeIf { it.isNotBlank() }
-                ?: throw IllegalStateException("The latest release has no $COMPANION_ANTIGEM .deb file.")
+                ?: throw IllegalStateException("The latest release has no $COMPANION_TERMO .deb file.")
         }
     }
 

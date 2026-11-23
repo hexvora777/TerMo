@@ -433,7 +433,7 @@ internal fun ServersSubScreen(
         AlertDialog(
             onDismissRequest = { showRestartDialog = false },
             icon = { Icon(Icons.Outlined.RestartAlt, null, tint = ClaudeTerracotta, modifier = Modifier.size(28.dp)) },
-            title = { Text("Reopen AntiGem?", fontWeight = FontWeight.Bold, fontSize = 17.sp) },
+            title = { Text("Reopen TerMo?", fontWeight = FontWeight.Bold, fontSize = 17.sp) },
             text = {
                 Text(
                     if (remote) "Settings saved. Reopening the app connects over SSH, starts the bridge that is already on the server and opens the connections with the new settings."
@@ -632,7 +632,7 @@ internal fun ServersSubScreen(
                         Text(
                             when {
                                 !remote && phoneChroot -> "This phone, in the rooted Ubuntu chroot: the bridge, the agents and the terminal (apt, glibc, sudo)."
-                                !remote -> "This phone, in AntiGem's built-in environment: the bridge, the agents and the terminal (no root needed)."
+                                !remote -> "This phone, in TerMo's built-in environment: the bridge, the agents and the terminal (no root needed)."
                                 tunnel -> "On your server, reached through the SSH connection: no open ports, no domain, no reverse proxy."
                                 else -> "The bridge and the agents run on your server, reached by a domain or open ports. The app manages them over SSH."
                             },
@@ -644,7 +644,7 @@ internal fun ServersSubScreen(
                 Text("This phone", fontSize = 11.5.sp, fontWeight = FontWeight.SemiBold, color = subtle)
                 Spacer(Modifier.height(4.dp))
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    ModeOption("AntiGem", !remote && !phoneChroot, Modifier.weight(1f)) { selectPhone(false) }
+                    ModeOption("TerMo", !remote && !phoneChroot, Modifier.weight(1f)) { selectPhone(false) }
                     ModeOption("Ubuntu chroot", !remote && phoneChroot, Modifier.weight(1f)) { selectPhone(true) }
                 }
                 Spacer(Modifier.height(8.dp))
@@ -1099,7 +1099,7 @@ internal fun ServersSubScreen(
                         Icon(Icons.Outlined.Terminal, null, tint = ClaudeTerracotta, modifier = Modifier.size(22.dp))
                         Spacer(Modifier.width(10.dp))
                         Column(Modifier.weight(1f)) {
-                            Text("Agent paths in AntiGem", fontSize = 14.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                            Text("Agent paths in TerMo", fontSize = 14.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Text("For advanced use only: leave them empty and the defaults (shown in grey) are used", fontSize = 11.5.sp, color = subtle)
                         }
                     }
@@ -1124,7 +1124,7 @@ internal fun ServersSubScreen(
                         fontSize = 11.sp, color = subtle
                     )
                     Text(
-                        "• Claude Code: the default is AntiGem's launcher, which runs the newest official Claude version through the bundled glibc. Claude updates never replace it.",
+                        "• Claude Code: the default is TerMo's launcher, which runs the newest official Claude version through the bundled glibc. Claude updates never replace it.",
                         fontSize = 11.sp, color = subtle
                     )
                     Text(
@@ -1224,7 +1224,7 @@ internal fun ServersSubScreen(
                 val bridge = AuthPreferences.normalizeServerUrl(bridgeText, BuildConfig.BRIDGE_PORT)
                 val problem = when {
                     !remote && phoneChroot && ai.antigem.data.local.chroot.ChrootManager.activeInstall(context) == null ->
-                        "Install the Ubuntu chroot first (Install or find, above), or choose AntiGem."
+                        "Install the Ubuntu chroot first (Install or find, above), or choose TerMo."
                     bridge == null -> "The IDE Bridge address is not valid."
                     hub == null -> "The AGY Hub address is not valid."
                     remote && tunnel && (!AuthPreferences.isLoopbackHost(AuthPreferences.hostOf(bridge)) || !AuthPreferences.isLoopbackHost(AuthPreferences.hostOf(hub))) ->

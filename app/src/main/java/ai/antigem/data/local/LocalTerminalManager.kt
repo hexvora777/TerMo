@@ -73,7 +73,7 @@ class LocalPtySession(
     /** Arguments for /system/bin/sh as they are (the Ubuntu chroot's bridge-log view); null: the normal shell. */
     val rawShellArgs: Array<String>? = null
 ) : TerminalSessionClient {
-    private val TAG = "AntiGemTerminal"
+    private val TAG = "TerMoTerminal"
 
     var assignedPaneId: String? = initialPaneId
     var assignedWindowId: String? = initialWindowId
@@ -524,15 +524,15 @@ class LocalPtySession(
                 }
             } else if (data.isNotEmpty()) {
                 val str = String(data, Charsets.UTF_8)
-                if (str.contains("ANTIGEM_INFO:")) {
+                if (str.contains("TERMO_INFO:")) {
                     val line =
-                        str.lines().find { it.contains("ANTIGEM_INFO:") }?.substringAfter("ANTIGEM_INFO:")?.trim()
+                        str.lines().find { it.contains("TERMO_INFO:") }?.substringAfter("TERMO_INFO:")?.trim()
                     if (!line.isNullOrEmpty()) {
                         handleAntigemInfo(line)
                     }
-                } else if (str.contains("ANTIGEM_PANE_ID:")) {
+                } else if (str.contains("TERMO_PANE_ID:")) {
                     val extracted =
-                        str.lines().find { it.contains("ANTIGEM_PANE_ID:") }?.substringAfter("ANTIGEM_PANE_ID:")?.trim()
+                        str.lines().find { it.contains("TERMO_PANE_ID:") }?.substringAfter("TERMO_PANE_ID:")?.trim()
                     if (!extracted.isNullOrEmpty()) {
                         assignedPaneId = extracted
                         Log.d(TAG, "[$id] Bound session to pane $assignedPaneId from command response")
@@ -566,13 +566,13 @@ class LocalPtySession(
             }
         },
         onUnhandledEvent = { event ->
-            if (event.contains("ANTIGEM_INFO:")) {
-                val line = event.substringAfter("ANTIGEM_INFO:").trim()
+            if (event.contains("TERMO_INFO:")) {
+                val line = event.substringAfter("TERMO_INFO:").trim()
                 if (line.isNotEmpty()) {
                     handleAntigemInfo(line)
                 }
-            } else if (event.contains("ANTIGEM_PANE_ID:")) {
-                val extracted = event.substringAfter("ANTIGEM_PANE_ID:").trim()
+            } else if (event.contains("TERMO_PANE_ID:")) {
+                val extracted = event.substringAfter("TERMO_PANE_ID:").trim()
                 if (extracted.isNotEmpty()) {
                     assignedPaneId = extracted
                     Log.d(TAG, "[$id] Bound session to pane $assignedPaneId from unhandled event")
@@ -673,7 +673,7 @@ class LocalPtySession(
                     val target = assignedPaneId ?: (tmuxWindowIndex?.let { "$tmuxSessionName:$it" } ?: "")
                     val targetArg = if (target.isNotEmpty()) "-t $target " else ""
                     val cmd =
-                        "display-message ${targetArg}-p \"ANTIGEM_INFO:#{window_index}|#{window_name}|#{pane_current_path}|#{pane_id}|#{alternate_on}|#{mouse_any_flag}|#{mouse_sgr_flag}|#{window_id}\"\n"
+                        "display-message ${targetArg}-p \"TERMO_INFO:#{window_index}|#{window_name}|#{pane_current_path}|#{pane_id}|#{alternate_on}|#{mouse_any_flag}|#{mouse_sgr_flag}|#{window_id}\"\n"
                     sshOut?.write(cmd.toByteArray(Charsets.UTF_8))
                     sshOut?.flush()
                 } catch (_: Exception) {
@@ -828,7 +828,7 @@ class LocalPtySession(
                     "tmux set-option -t $tmuxSessionName mouse on 2>/dev/null; " +
                     "fi; " +
                     "targetWin=\$(if [ -n \"$winIdx\" ] && tmux list-windows -t $tmuxSessionName -F \"#{window_index}\" 2>/dev/null | grep -qx \"$winIdx\"; then echo \"$winIdx\"; else tmux list-windows -t $tmuxSessionName -F \"#{window_index}\" 2>/dev/null | head -n 1; fi); " +
-                    "tmux -CC new-session -A -t $tmuxSessionName -s ${tmuxSessionName}_\${targetWin} \\; select-window -t $tmuxSessionName:\$targetWin \\; display-message -p -t $tmuxSessionName:\$targetWin \"ANTIGEM_INFO:#{window_index}|#{window_name}|#{pane_current_path}|#{pane_id}|#{alternate_on}|#{mouse_any_flag}|#{mouse_sgr_flag}|#{window_id}\"; " +
+                    "tmux -CC new-session -A -t $tmuxSessionName -s ${tmuxSessionName}_\${targetWin} \\; select-window -t $tmuxSessionName:\$targetWin \\; display-message -p -t $tmuxSessionName:\$targetWin \"TERMO_INFO:#{window_index}|#{window_name}|#{pane_current_path}|#{pane_id}|#{alternate_on}|#{mouse_any_flag}|#{mouse_sgr_flag}|#{window_id}\"; " +
                     "else \${SHELL:-sh}; fi"
 
             Log.d(TAG, "[$id] Executing SSH command: $tmuxCmd")
@@ -1116,7 +1116,7 @@ class LocalPtySession(
 }
 
 object LocalTerminalManager {
-    private const val TAG = "AntiGemTerminal"
+    private const val TAG = "TerMoTerminal"
     private const val TMUX_SESSION_NAME = "antigem"
 
     var lastKnownCols: Int = 60

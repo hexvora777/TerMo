@@ -244,7 +244,7 @@ object LocalEnvironmentManager {
             } ?: ""
             val script = """
                 |#!$prefix/bin/bash
-                |# Claude Code launcher written by AntiGem on every start (edits are overwritten).
+                |# Claude Code launcher written by TerMo on every start (edits are overwritten).
                 |# The official Claude binary needs glibc: start the newest installed version through the bundled loader.
                 |# Claude's updater only changes ~/.local/share/claude/versions and ~/.local/bin/claude, never this file.
                 |VERSIONS_DIR="$home/.local/share/claude/versions"
@@ -268,11 +268,11 @@ object LocalEnvironmentManager {
                 |    done
                 |fi
                 |if [ -z "${'$'}TARGET" ]; then
-                |    echo "Claude Code is not installed. Install it in AntiGem: Settings > Claude Code > Account & CLI." >&2
+                |    echo "Claude Code is not installed. Install it in TerMo: Settings > Claude Code > Account & CLI." >&2
                 |    exit 127
                 |fi
                 |if [ ! -x "${'$'}LOADER" ]; then
-                |    echo "The glibc runtime is missing (${'$'}LOADER). Reopen AntiGem to restore it." >&2
+                |    echo "The glibc runtime is missing (${'$'}LOADER). Reopen TerMo to restore it." >&2
                 |    exit 127
                 |fi
                 |# termux-exec is a bionic library: it must not be preloaded into the glibc process
@@ -430,17 +430,17 @@ object LocalEnvironmentManager {
         val settings = "Settings → Termux Support → Termux:API"
         val header = """
             |#!$prefix/bin/bash
-            |# Written by AntiGem (edits are overwritten). The termux-* commands (termux-api package) run this with an API
-            |# method. $settings chooses who handles them: AntiGem itself (built-in) or AntiGem's Termux:API app.
+            |# Written by TerMo (edits are overwritten). The termux-* commands (termux-api package) run this with an API
+            |# method. $settings chooses who handles them: TerMo itself (built-in) or TerMo's Termux:API app.
             |""".trimMargin()
         if (external) {
             val route = if (appInstalled) """
-                |# Mode: AntiGem's Termux:API app ($apiApp). Every call goes to it, through the termux-api package's own
+                |# Mode: TerMo's Termux:API app ($apiApp). Every call goes to it, through the termux-api package's own
                 |# binary (termux-api.distrib: moved there with dpkg-divert, so it and this file never overwrite each other).
                 |exec '$prefix/libexec/termux-api.distrib' "${'$'}@"
                 |""" else """
-                |# Mode: AntiGem's Termux:API app, which isn't installed (the app checks when it writes this file).
-                |echo "termux-api: AntiGem's Termux:API app ($apiApp) isn't installed. Install it, or choose Built-in in $settings." >&2
+                |# Mode: TerMo's Termux:API app, which isn't installed (the app checks when it writes this file).
+                |echo "termux-api: TerMo's Termux:API app ($apiApp) isn't installed. Install it, or choose Built-in in $settings." >&2
                 |exit 1
                 |"""
             return header + "\n" + route.trimMargin() + "\n"
@@ -748,7 +748,7 @@ object LocalEnvironmentManager {
                     val targetUrl = rootfsUrl(source.mirror)
                     val targetAsset = "$HARDCODED_ROOTFS_ASSET · ${source.mirror.label}"
                     val targetSizeBytes = HARDCODED_ROOTFS_SIZE_BYTES
-                    val titlePrefix = "AntiGem Rootfs (${source.mirror.label})"
+                    val titlePrefix = "TerMo Rootfs (${source.mirror.label})"
 
                     _installerState.value = LocalInstallerState.Downloading(
                         bytesDownloaded = 0L,
@@ -1510,7 +1510,7 @@ object LocalEnvironmentManager {
             // Coming from the chroot: its bridge outlives the app, so it is stopped (and its terminals closed) first
             val wasChroot = authPreferences.isChrootModeSync()
             if (wasChroot) {
-                log("Stopping the Ubuntu chroot's bridge: the agents move to AntiGem's built-in environment…")
+                log("Stopping the Ubuntu chroot's bridge: the agents move to TerMo's built-in environment…")
                 runCatching { LocalServerManager.stopServerCompletely() }
                 runCatching { ai.antigem.data.local.chroot.ChrootManager.stopBridge(appContext) }
                 runCatching { LocalTerminalManager.closeAll() }
@@ -2029,7 +2029,7 @@ object LocalEnvironmentManager {
         val bashrc = File(homeDir, ".bashrc")
         if (!bashrc.exists()) {
             bashrc.writeText(
-                """# AntiGem Local Linux Environment
+                """# TerMo Local Linux Environment
 export PREFIX="${prefixDir.absolutePath}"
 export HOME="${homeDir.absolutePath}"
 export PATH="${homeDir.absolutePath}/.local/bin:${binDir.absolutePath}:${binDir.absolutePath}/applets:/system/bin:/system/xbin"

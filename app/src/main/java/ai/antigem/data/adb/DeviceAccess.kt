@@ -42,7 +42,7 @@ object DeviceAccess {
     private const val PREFS = "adb_connect"
     /** Output kept for a tool result (a base64 screenshot of a big screen fits). */
     private const val MAX_OUTPUT = 24 * 1024 * 1024
-    private const val MARKER = "Written by AntiGem"
+    private const val MARKER = "Written by TerMo"
 
     enum class Mode(val label: String, val key: String) {
         ADB("ADB", "adb"), SHIZUKU("Shizuku", "shizuku"), ROOT("Root", "root");
@@ -91,7 +91,7 @@ object DeviceAccess {
         }
     }
 
-    const val ADB_NOT_READY = "ADB is not connected. Ask the user to open AntiGem → Settings → ADB Connect and connect " +
+    const val ADB_NOT_READY = "ADB is not connected. Ask the user to open TerMo → Settings → ADB Connect and connect " +
         "(pair once, with Wireless debugging on), or to pick Shizuku or Root there."
 
     /** A short description of what the picked mode is, for status output. */
@@ -305,7 +305,7 @@ object DeviceAccess {
     fun serveExit(query: String, out: OutputStream) {
         val id = query.split('&').firstOrNull { it.startsWith("id=") }?.removePrefix("id=").orEmpty()
         val status = exits.remove(id)?.second
-        if (status == null) plain(out, 404, "unknown run (AntiGem may have restarted)") else plain(out, 200, status)
+        if (status == null) plain(out, 404, "unknown run (TerMo may have restarted)") else plain(out, 200, status)
     }
 
     private fun decode(b64: String?): String? =
@@ -328,7 +328,7 @@ object DeviceAccess {
     private fun port(): Int = ai.antigem.data.remote.AndroidLocalBridgeServer.instance.boundPort
 
     private fun configText(): String =
-        "# AntiGem's local server, for rish and android-su. $MARKER on every start; edits are overwritten.\n" +
+        "# TerMo's local server, for rish and android-su. $MARKER on every start; edits are overwritten.\n" +
             "PORT=${port()}\nTOKEN=${token()}\n"
 
     /**
@@ -401,17 +401,17 @@ object DeviceAccess {
         return """
             |#!$bash
             |# $name: runs commands on this Android phone as $who.
-            |# $MARKER (Settings > ADB Connect); edits are overwritten. AntiGem must be running.
+            |# $MARKER (Settings > ADB Connect); edits are overwritten. TerMo must be running.
             |NAME=$name
             |MODE=${mode.key}
             |CONF="${d}HOME/.config/antigem/device-access"
             |if [ ! -r "${d}CONF" ]; then
-            |    echo "${d}NAME: ${d}CONF is missing. Open AntiGem once (it writes this file), then try again." >&2
+            |    echo "${d}NAME: ${d}CONF is missing. Open TerMo once (it writes this file), then try again." >&2
             |    exit 1
             |fi
             |. "${d}CONF"
             |if [ -z "${d}PORT" ] || [ -z "${d}TOKEN" ]; then
-            |    echo "${d}NAME: ${d}CONF is incomplete. Open AntiGem once, then try again." >&2
+            |    echo "${d}NAME: ${d}CONF is incomplete. Open TerMo once, then try again." >&2
             |    exit 1
             |fi
             |if ! command -v curl >/dev/null 2>&1; then
@@ -457,7 +457,7 @@ object DeviceAccess {
             |        "http://127.0.0.1:${d}PORT/api/device/exec"
             |    local rc=${d}?
             |    if [ ${d}rc -eq 7 ]; then
-            |        echo "${d}NAME: can't reach AntiGem on port ${d}PORT. Is AntiGem running?" >&2
+            |        echo "${d}NAME: can't reach TerMo on port ${d}PORT. Is TerMo running?" >&2
             |        return 1
             |    fi
             |    local status
@@ -465,7 +465,7 @@ object DeviceAccess {
             |    local code="${d}{status%%${d}'\n'*}"
             |    if [ "${d}status" != "${d}code" ]; then echo "${d}NAME: ${d}{status#*${d}'\n'}" >&2; fi
             |    case "${d}code" in
-            |        ''|*[!0-9]*) [ -z "${d}status" ] && echo "${d}NAME: no exit code from AntiGem (curl exit ${d}rc)" >&2; return 1 ;;
+            |        ''|*[!0-9]*) [ -z "${d}status" ] && echo "${d}NAME: no exit code from TerMo (curl exit ${d}rc)" >&2; return 1 ;;
             |    esac
             |    return "${d}code"
             |}

@@ -19,7 +19,7 @@
       "Added Effort and Thinking controls to OpenCode chats for models that support them",
       "The chat now warns when you attach an image to an OpenCode model that can't read images",
       "Fixed the app not starting on Android 7 and 8",
-      "Back on the main chat screen now moves AntiGem to the background instead of closing it"
+      "Back on the main chat screen now moves TerMo to the background instead of closing it"
     ]
   }
 }

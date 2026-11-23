@@ -23,7 +23,7 @@ enum class ChrootDnsMode(val conf: String) {
 
 /** What happens to the chroot when AntiGem is exited (notification or drawer Exit). */
 enum class ChrootExitBehavior(val label: String, val description: String) {
-    KEEP_RUNNING("Keep running", "The bridge and the agents keep working while AntiGem is closed; AntiGem reconnects when opened."),
+    KEEP_RUNNING("Keep running", "The bridge and the agents keep working while TerMo is closed; TerMo reconnects when opened."),
     STOP_BRIDGE("Stop the bridge and agents", "The chroot's mounts stay, so the next start is quick."),
     STOP_ALL("Stop everything", "Every process of the chroot is stopped and its folders are unmounted.")
 }
@@ -102,7 +102,7 @@ data class ChrootInstall(
 
     /** .antigem/manifest */
     fun toManifest(): String = buildString {
-        appendLine("ANTIGEM_MANIFEST=1")
+        appendLine("TERMO_MANIFEST=1")
         appendLine("NAME=$name")
         appendLine("OS=${os.replace('\n', ' ')}")
         appendLine("ARCH=$arch")
@@ -145,7 +145,7 @@ data class ChrootFound(
     /** It carries its own settings (.antigem/chroot.conf): an AntiGem install or a backup of one. */
     val hasConf: Boolean = false
 ) {
-    val hasManifest: Boolean get() = manifest["ANTIGEM_MANIFEST"] == "1"
+    val hasManifest: Boolean get() = manifest["TERMO_MANIFEST"] == "1"
 
     fun toInstall(): ChrootInstall = ChrootInstall(
         path = path,

@@ -309,24 +309,24 @@ object MiniAppKeyBackup {
             val values = android.content.ContentValues().apply {
                 put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, name)
                 put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream")
-                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "${android.os.Environment.DIRECTORY_DOWNLOADS}/AntiGem")
+                put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "${android.os.Environment.DIRECTORY_DOWNLOADS}/TerMo")
                 put(android.provider.MediaStore.MediaColumns.IS_PENDING, 1)
             }
             val r = context.contentResolver
             val uri = r.insert(android.provider.MediaStore.Downloads.getContentUri(android.provider.MediaStore.VOLUME_EXTERNAL_PRIMARY), values)
-                ?: throw MiniAppError("InvalidStateError", "Couldn't create the file in Download/AntiGem")
-            r.openOutputStream(uri)?.use { it.write(bytes) } ?: throw MiniAppError("InvalidStateError", "Couldn't write Download/AntiGem/$name")
+                ?: throw MiniAppError("InvalidStateError", "Couldn't create the file in Download/TerMo")
+            r.openOutputStream(uri)?.use { it.write(bytes) } ?: throw MiniAppError("InvalidStateError", "Couldn't write Download/TerMo/$name")
             values.clear(); values.put(android.provider.MediaStore.MediaColumns.IS_PENDING, 0)
             r.update(uri, values, null, null)
             // the name it really got (Android adds " (1)" when one exists)
             val real = r.query(uri, arrayOf(android.provider.MediaStore.MediaColumns.DISPLAY_NAME), null, null, null)?.use { c -> if (c.moveToFirst()) c.getString(0) else null } ?: name
-            "Download/AntiGem/$real"
+            "Download/TerMo/$real"
         } else {
-            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "AntiGem").also { it.mkdirs() }
+            val dir = File(android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS), "TerMo").also { it.mkdirs() }
             var f = File(dir, name); var n = 1
             while (f.exists()) f = File(dir, name.removeSuffix(".agkey") + " (${n++}).agkey")
             f.writeBytes(bytes)
-            "Download/AntiGem/${f.name}"
+            "Download/TerMo/${f.name}"
         }
         val copy = File(context.cacheDir, "key-backup").also { it.deleteRecursively(); it.mkdirs() }.let { File(it, name) }
         copy.writeBytes(bytes)

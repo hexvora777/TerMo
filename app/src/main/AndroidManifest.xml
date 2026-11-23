@@ -199,7 +199,7 @@
         <activity
             android:name=".ui.bubble.FloatingChatActivity"
             android:exported="false"
-            android:theme="@style/Theme.AntiGem.FloatingTranslucent"
+            android:theme="@style/Theme.TerMo.FloatingTranslucent"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:excludeFromRecents="true"
             android:noHistory="true"
@@ -379,13 +379,13 @@
         <activity
             android:name="ai.antigem.ui.miniapps.MiniAppsActivity"
             android:exported="true"
-            android:theme="@style/Theme.AntiGem.MiniApp"
+            android:theme="@style/Theme.TerMo.MiniApp"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize" />
         <!-- "Get apps": the mini apps of AntiGem's GitHub catalog -->
         <activity
             android:name="ai.antigem.ui.miniapps.MiniAppStoreActivity"
             android:exported="false"
-            android:theme="@style/Theme.AntiGem.MiniApp"
+            android:theme="@style/Theme.TerMo.MiniApp"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize" />
         <!-- The mini app installer (like Android's for .apk): opening an .agapp from any app (WhatsApp, Telegram, Gmail,
              Files, a browser's downloads, AntiGem's file explorer) shows the install / update screen over that app -->
@@ -448,13 +448,13 @@
             android:name="ai.antigem.ui.miniapps.MiniAppActivity"
             android:exported="true"
             android:documentLaunchMode="intoExisting"
-            android:theme="@style/Theme.AntiGem.MiniApp"
+            android:theme="@style/Theme.TerMo.MiniApp"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|density|fontScale" />
         <activity
             android:name="ai.antigem.ui.miniapps.MiniAppPageActivity"
             android:exported="false"
-            android:theme="@style/Theme.AntiGem.MiniApp"
+            android:theme="@style/Theme.TerMo.MiniApp"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:configChanges="uiMode|orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|density|fontScale" />
         <!-- Mini app home-screen shortcuts and notification taps: bring the app forward as it was (or start it) -->
@@ -513,7 +513,7 @@
         <activity
             android:name="ai.antigem.ui.settings.ManageSpaceActivity"
             android:exported="true"
-            android:label="AntiGem Space Manager"
+            android:label="TerMo Space Manager"
             android:theme="@style/Theme.Gemini">
             <intent-filter>
                 <action android:name="android.intent.action.MANAGE_SPACE" />

@@ -718,8 +718,8 @@ class AgyBridgeService(
                 response.body?.source()?.let { source ->
                     while (true) {
                         val line = source.readUtf8Line() ?: break
-                        if (line.startsWith("ANTIGEM_EXIT=")) exit = line.removePrefix("ANTIGEM_EXIT=").trim().toIntOrNull() ?: 1
-                        if (line.startsWith("ANTIGEM_CLONED_PATH=")) exit = 0
+                        if (line.startsWith("TERMO_EXIT=")) exit = line.removePrefix("TERMO_EXIT=").trim().toIntOrNull() ?: 1
+                        if (line.startsWith("TERMO_CLONED_PATH=")) exit = 0
                         onLine(line)
                     }
                 }

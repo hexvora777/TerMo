@@ -389,7 +389,7 @@ object ChrootManager {
             }
         }
         _found.value = found
-        // what AntiGem already knew: refresh its details from the manifests
+        // what TerMo already knew: refresh its details from the manifests
         val known = _installs.value.map { inst ->
             val f = found.firstOrNull { it.path == inst.path } ?: return@map inst
             if (f.hasManifest) f.toInstall() else inst.copy(os = f.os.ifBlank { inst.os }, arch = f.arch, legacy = true)
@@ -399,8 +399,8 @@ object ChrootManager {
     }
 
     /**
-     * Takes over a rootfs that has no AntiGem manifest (the first chroot version's /data/local/ubuntu, or another
-     * tool's): writes the manifest and the settings, registers it and moves its user to AntiGem's uid.
+     * Takes over a rootfs that has no TerMo manifest (the first chroot version's /data/local/ubuntu, or another
+     * tool's): writes the manifest and the settings, registers it and moves its user to TerMo's uid.
      */
     suspend fun adopt(context: Context, found: ChrootFound, user: String, onLine: ((String) -> Unit)? = null): Result<ChrootInstall> {
         init(context)
@@ -451,14 +451,14 @@ object ChrootManager {
 
     /**
      * Mounts the chroot (when not mounted), writes its DNS and time zone, and with [withBridge] puts this app
-     * version's bridge into it. Moves the user to AntiGem's uid first when the app's uid changed (reinstall).
+     * version's bridge into it. Moves the user to TerMo's uid first when the app's uid changed (reinstall).
      */
     suspend fun start(context: Context, install: ChrootInstall? = activeInstall(context), withBridge: Boolean = false,
                       onLine: ((String) -> Unit)? = null): StartResult {
         install ?: return StartResult(false, "No Ubuntu chroot is installed.", false, null)
         val myUid = android.os.Process.myUid()
         if (!install.legacy && install.uid != myUid && install.uid >= 0) {
-            // AntiGem was reinstalled with a new uid: the chroot's user follows it (its processes must be stopped)
+            // TerMo was reinstalled with a new uid: the chroot's user follows it (its processes must be stopped)
             stop(context, install)
             val r = execAsRoot(context, install.path,
                 ChrootScripts.userScript(install.user, myUid, password = "", sudoNoPassword = true, keepSudoers = true), onLine)
@@ -787,7 +787,7 @@ object ChrootManager {
     }
 
     /**
-     * A clean image for the "AntiGem Ubuntu (prebuilt)" source: [ChrootInstaller.prebuiltAsset] plus its .sha256,
+     * A clean image for the "TerMo Ubuntu (prebuilt)" source: [ChrootInstaller.prebuiltAsset] plus its .sha256,
      * created in the folder [treeUri] the user picked.
      */
     suspend fun exportCleanImage(context: Context, install: ChrootInstall, treeUri: Uri, totalKbHint: Long?, onLine: (String) -> Unit): SuResult {

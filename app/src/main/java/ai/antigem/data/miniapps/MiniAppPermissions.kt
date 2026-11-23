@@ -182,8 +182,8 @@ object MiniAppPermissions {
                 val sensitive = MiniAppMcpAccess.isSensitive(server)
                 when {
                     tool.isNotEmpty() -> Info("$server: $tool", if (sensitive) "Use the $tool tool (it can act on your phone)" else "Use the $tool tool", sensitive)
-                    spec.optBoolean("readOnly") -> Info("AntiGem tools: $server", "Only its read-only tools", sensitive)
-                    else -> Info("AntiGem tools: $server", if (sensitive) "Every $server tool: it can control parts of your phone" else "Every $server tool", sensitive)
+                    spec.optBoolean("readOnly") -> Info("TerMo tools: $server", "Only its read-only tools", sensitive)
+                    else -> Info("TerMo tools: $server", if (sensitive) "Every $server tool: it can control parts of your phone" else "Every $server tool", sensitive)
                 }
             }
             else -> Info(name, "", false)
@@ -214,7 +214,7 @@ object MiniAppPermissions {
 
     fun checkLoopback(context: Context, app: MiniApp, port: Int): String? {
         if (!isGranted(context, app, "localhost")) return "the app has no \"localhost\" permission"
-        if (port in BLOCKED_PORTS) return "port $port belongs to AntiGem"
+        if (port in BLOCKED_PORTS) return "port $port belongs to TerMo"
         // no "ports" list: any port (but AntiGem's own); a list (even an empty one): only those
         val ports = app.permissions["localhost"]?.optJSONArray("ports")?.let { a -> (0 until a.length()).map { a.optInt(it) } } ?: return null
         return if (port in ports) null else if (ports.isEmpty()) "the manifest's localhost ports list is empty" else "localhost port $port is not in the manifest"

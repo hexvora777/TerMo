@@ -34,7 +34,7 @@ object GitHubManager {
     /** Extra scopes on top of gh's defaults (repo, read:org, gist): workflow lets git push .github/workflows files. */
     private const val EXTRA_SCOPES = "workflow"
     private const val LOGIN_PID_FILE = "\"\${TMPDIR:-/tmp}/antigem-gh-login.pid\""
-    const val TOKEN_URL = "https://github.com/settings/tokens/new?scopes=repo,read:org,gist,workflow&description=AntiGem"
+    const val TOKEN_URL = "https://github.com/settings/tokens/new?scopes=repo,read:org,gist,workflow&description=TerMo"
     const val INSTALL_DOCS_URL = "https://github.com/cli/cli#installation"
 
     data class Account(
@@ -565,7 +565,7 @@ object GitHubManager {
         val log = mutableListOf<String>()
         var path: String? = null
         val sink: (String) -> Unit = { line ->
-            if (line.startsWith("ANTIGEM_CLONED_PATH=")) path = line.removePrefix("ANTIGEM_CLONED_PATH=").trim()
+            if (line.startsWith("TERMO_CLONED_PATH=")) path = line.removePrefix("TERMO_CLONED_PATH=").trim()
             else if (line.isNotBlank() && !line.contains('%')) log += line
         }
         val exit = if (remote || ai.antigem.data.local.chroot.ChrootManager.isActiveNow()) {

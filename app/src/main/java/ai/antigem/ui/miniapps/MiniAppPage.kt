@@ -121,7 +121,7 @@ class MiniAppPage(private val host: MiniAppHost, app: MiniApp, override val path
             mediaPlaybackRequiresUserGesture = false
             setSupportMultipleWindows(false)
             javaScriptCanOpenWindowsAutomatically = false
-            userAgentString = "$userAgentString AntiGemMiniApp/${MiniApps.SDK_VERSION}"
+            userAgentString = "$userAgentString TerMoMiniApp/${MiniApps.SDK_VERSION}"
         }
         if (WebViewFeature.isFeatureSupported(WebViewFeature.SAFE_BROWSING_ENABLE)) WebSettingsCompat.setSafeBrowsingEnabled(settings, false)
         overScrollMode = View.OVER_SCROLL_NEVER

@@ -104,7 +104,7 @@ fun ChrootBuildScreen(onClose: () -> Unit) {
             IconButton(onClick = { if (!busy) onClose() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back", tint = AppColors.onBackground) }
             Column(Modifier.weight(1f)) {
                 Text("Ubuntu chroot (root)", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = AppColors.onBackground)
-                Text("Needs the chroot build of AntiGem", fontSize = 11.5.sp, color = AppColors.textSecondary)
+                Text("Needs the chroot build of TerMo", fontSize = 11.5.sp, color = AppColors.textSecondary)
             }
         }
         HorizontalDivider(color = AppColors.border.copy(alpha = 0.5f))
@@ -113,10 +113,10 @@ fun ChrootBuildScreen(onClose: () -> Unit) {
             Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = chrootColumnSpacing
         ) {
-            ChrootSection("The chroot build", "This is the normal build of AntiGem", Icons.Outlined.Storage, AppColors.success) {
+            ChrootSection("The chroot build", "This is the normal build of TerMo", Icons.Outlined.Storage, AppColors.success) {
                 Text(
                     "On a rooted phone, agents can run in a real Ubuntu (apt, glibc, sudo) through a chroot. It uses a Linux " +
-                        "build of AntiGem's bridge, which only the chroot build carries (about 4 MB more), so other phones " +
+                        "build of TerMo's bridge, which only the chroot build carries (about 4 MB more), so other phones " +
                         "don't download it.",
                     fontSize = 12.5.sp, lineHeight = 17.sp, color = AppColors.onBackground
                 )
@@ -146,8 +146,8 @@ fun ChrootBuildScreen(onClose: () -> Unit) {
                     )
                 }
                 is ChrootBuildStep.Downloaded -> ChrootNote(
-                    if (s.opened) "Downloaded. Confirm the update in Android's installer: AntiGem restarts as the chroot build."
-                    else "Downloaded. Allow AntiGem to install apps (Android opened that setting), then come back and tap Install.",
+                    if (s.opened) "Downloaded. Confirm the update in Android's installer: TerMo restarts as the chroot build."
+                    else "Downloaded. Allow TerMo to install apps (Android opened that setting), then come back and tap Install.",
                     if (s.opened) AppColors.success else AppColors.warning
                 )
                 is ChrootBuildStep.Failed -> ChrootNote(s.message, AppColors.danger)
@@ -176,7 +176,7 @@ fun ChrootBuildScreen(onClose: () -> Unit) {
             OutlinedButton(
                 onClick = { runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(RELEASES_PAGE)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) } },
                 modifier = Modifier.fillMaxWidth().height(48.dp), shape = RoundedCornerShape(14.dp)
-            ) { Text("Open the releases page (AntiGem-v…-chroot.apk)") }
+            ) { Text("Open the releases page (TerMo-v…-chroot.apk)") }
         }
     }
 }

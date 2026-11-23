@@ -212,7 +212,7 @@ object MiniAppNet {
     }
 
     private fun ua(context: Context): String = userAgent ?: runCatching { WebSettings.getDefaultUserAgent(context) }.getOrDefault("Mozilla/5.0 (Linux; Android)")
-        .plus(" AntiGemMiniApp/${MiniApps.SDK_VERSION}").also { userAgent = it }
+        .plus(" TerMoMiniApp/${MiniApps.SDK_VERSION}").also { userAgent = it }
 
     private fun check(context: Context, app: MiniApp, url: HttpUrl) {
         MiniAppPermissions.checkNetwork(context, app, url.host, url.port)?.let { throw MiniAppError("NotAllowedError", "Network request to ${url.host} blocked: $it") }

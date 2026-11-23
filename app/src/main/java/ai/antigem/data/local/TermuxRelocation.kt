@@ -247,7 +247,7 @@ object TermuxRelocation {
             writeIfChanged(
                 File(prefixDir, "etc/apt/apt.conf.d/99antigem-relocate"),
                 """
-                |// Written by AntiGem (edits are overwritten). Termux packages are built for $TERMUX_PACKAGE: this hook
+                |// Written by TerMo (edits are overwritten). Termux packages are built for $TERMUX_PACKAGE: this hook
                 |// rewrites each .deb for $pkg before dpkg installs it.
                 |DPkg::Pre-Install-Pkgs { "$relocator --apt"; };
                 |""".trimMargin(),
@@ -388,7 +388,7 @@ object TermuxRelocation {
         } + "s/$oldRegex/$pkg/g; s/${placeholder.replace(".", "\\.")}/$TERMUX_PACKAGE/g"
         return """
             |#!$prefix/bin/sh
-            |# Written by AntiGem (edits are overwritten). Termux packages are built for /data/data/$TERMUX_PACKAGE.
+            |# Written by TerMo (edits are overwritten). Termux packages are built for /data/data/$TERMUX_PACKAGE.
             |# Reads .deb paths on stdin (apt's DPkg::Pre-Install-Pkgs hook, apt.conf.d/99antigem-relocate, and the dpkg
             |# wrapper call it) and rewrites each .deb in place for $pkg: every "$TERMUX_PACKAGE" in paths, file contents,
             |# symlinks and maintainer scripts becomes "$pkg" (same length, so binaries keep their layout).
@@ -417,7 +417,7 @@ object TermuxRelocation {
             |    if [ ! -d "${'$'}work/pkg/data/data/${'$'}OLD" ] && ! grep -rqF "${'$'}OLD" "${'$'}work/pkg" 2>/dev/null; then
             |        rm -rf "${'$'}work"; return 0
             |    fi
-            |    echo "AntiGem: adapting ${'$'}{1##*/} for ${'$'}NEW"
+            |    echo "TerMo: adapting ${'$'}{1##*/} for ${'$'}NEW"
             |    if [ -d "${'$'}work/pkg/data/data/${'$'}OLD" ]; then
             |        mv "${'$'}work/pkg/data/data/${'$'}OLD" "${'$'}work/pkg/data/data/${'$'}NEW" || { rm -rf "${'$'}work"; return 1; }
             |    fi
@@ -461,7 +461,7 @@ object TermuxRelocation {
             |    if [ "${'$'}APT_MODE" = 1 ]; then
             |        case "${'$'}deb" in */cache/apt/archives/*) ;; *) continue ;; esac
             |    fi
-            |    relocate_deb "${'$'}deb" || { echo "AntiGem: could not adapt ${'$'}deb" >&2; fail=1; }
+            |    relocate_deb "${'$'}deb" || { echo "TerMo: could not adapt ${'$'}deb" >&2; fail=1; }
             |done
             |exit ${'$'}fail
             |""".trimMargin()
@@ -470,7 +470,7 @@ object TermuxRelocation {
     /** Installed as bin/dpkg (the real one is bin/dpkg.distrib): adapts .debs given by hand before dpkg installs them. */
     internal fun dpkgWrapper(prefix: String, relocator: String): String = """
         |#!$prefix/bin/sh
-        |# Written by AntiGem (edits are overwritten). The real dpkg is dpkg.distrib (moved there with dpkg-divert, so
+        |# Written by TerMo (edits are overwritten). The real dpkg is dpkg.distrib (moved there with dpkg-divert, so
         |# dpkg upgrades keep it there). Termux .debs are built for /data/data/$TERMUX_PACKAGE: when dpkg installs .deb
         |# files given by hand (dpkg -i x.deb, dpkg -R folder), copies of them are rewritten for this app first; the
         |# files themselves stay. apt (which holds the frontend lock) has rewritten the .debs it downloaded already
@@ -540,7 +540,7 @@ object TermuxRelocation {
         |    shift
         |    i=${'$'}((i + 1))
         |    if needs "${'$'}a"; then
-        |        adapt "${'$'}a" || { echo "dpkg (AntiGem): could not adapt ${'$'}a" >&2; exit 1; }
+        |        adapt "${'$'}a" || { echo "dpkg (TerMo): could not adapt ${'$'}a" >&2; exit 1; }
         |        a=${'$'}adapted
         |    elif [ "${'$'}recursive" = 1 ] && [ -d "${'$'}a" ] && dir_needs "${'$'}a"; then
         |        # a folder with the same .debs: adapted copies of those that need it, links to the others
@@ -549,7 +549,7 @@ object TermuxRelocation {
         |        find -L "${'$'}a" -type f -name '*.deb' > "${'$'}work/list${'$'}i"
         |        while IFS= read -r d; do
         |            if needs "${'$'}d"; then
-        |                adapt "${'$'}d" || { echo "dpkg (AntiGem): could not adapt ${'$'}d" >&2; exit 1; }
+        |                adapt "${'$'}d" || { echo "dpkg (TerMo): could not adapt ${'$'}d" >&2; exit 1; }
         |                mv "${'$'}adapted" "${'$'}dir/"
         |            else
         |                n=${'$'}((n + 1))

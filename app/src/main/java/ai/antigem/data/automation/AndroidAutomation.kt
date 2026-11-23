@@ -36,7 +36,7 @@ object AndroidAutomation {
     const val INSTRUCTIONS = "Controls this Android phone. Look first: android_get_ui_tree lists on-screen elements with ids like e12 and their centers; " +
         "android_screenshot shows what it looks like. Then act on element ids (android_tap, android_type_text, android_scroll), or on screen-pixel " +
         "coordinates when an element has no id. Ids are only valid for the latest tree, so read it again after the screen changes. " +
-        "For anything the tools don't cover, use android_adb_shell: it runs through the access the user picked in AntiGem " +
+        "For anything the tools don't cover, use android_adb_shell: it runs through the access the user picked in TerMo " +
         "(ADB, Shizuku or root). In the terminal: `adb shell …` (ADB), `rish -c '…'` (Shizuku, as the shell user), `su -c '…'` " +
         "(root; in the Ubuntu chroot `android-su -c '…'`, since the chroot's own su is Ubuntu's). When the user says use adb, " +
         "Shizuku or su, use that one. Ask the user before anything destructive or " +
@@ -64,8 +64,8 @@ object AndroidAutomation {
     fun notReadyMessage(context: Context): String? = when {
         isServiceRunning() -> null
         isServiceEnabledInSettings(context) -> "Android Automation's accessibility service is turned on but not running. " +
-            "Ask the user to turn \"AntiGem Android Automation\" off and on again in Android Settings → Accessibility, then reconnect this MCP server."
-        else -> "Android Automation is not set up. Ask the user to open AntiGem → Settings → Android Automation and grant the permissions there " +
+            "Ask the user to turn \"TerMo Android Automation\" off and on again in Android Settings → Accessibility, then reconnect this MCP server."
+        else -> "Android Automation is not set up. Ask the user to open TerMo → Settings → Android Automation and grant the permissions there " +
             "(the Accessibility service; on Android 13+ they may first need App info → ⋮ → Allow restricted settings). Then reconnect this MCP server."
     }
 
@@ -196,7 +196,7 @@ object AndroidAutomation {
         put(tool("android_force_stop_app", "Force-stop an app. Needs shell access (ADB, Shizuku or root).", listOf("package"),
             "package" to prop("string", "Package name")
         ))
-        put(tool("android_adb_shell", "Run a shell command on this phone (pm, am, settings, dumpsys, input, cmd, svc, wm…) through the access the user picked in AntiGem: ADB or Shizuku run it as the shell user, Root as root. android_get_status says which one.",
+        put(tool("android_adb_shell", "Run a shell command on this phone (pm, am, settings, dumpsys, input, cmd, svc, wm…) through the access the user picked in TerMo: ADB or Shizuku run it as the shell user, Root as root. android_get_status says which one.",
             listOf("command"),
             "command" to prop("string", "Shell command"),
             "timeout_seconds" to prop("integer", "Default 30, max 300")
@@ -737,7 +737,7 @@ object AndroidAutomation {
 
     private suspend fun uninstall(context: Context, svc: AutomationAccessibilityService, args: JSONObject): JSONObject {
         val pkg = packageArg(args)
-        if (pkg == context.packageName) return error("Refusing to uninstall AntiGem itself.")
+        if (pkg == context.packageName) return error("Refusing to uninstall TerMo itself.")
         if (DeviceAccess.notReadyMessage() == null) {
             val keep = if (args.optBoolean("keep_data")) "-k " else ""
             val out = DeviceAccess.shell("pm uninstall $keep$pkg", 60).output.trim()

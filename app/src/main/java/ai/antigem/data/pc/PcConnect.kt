@@ -341,11 +341,11 @@ object PcConnect {
         val side = PcPairingCrypto.PhoneSide(digits, phoneId)
         val start = postJson("$base/antigem/pair/start", JSONObject()
             .put("v", 1).put("phoneId", phoneId).put("phoneName", phoneName).put("x", side.xHex))
-        val session = start.optString("session").ifBlank { throw PairingException("The PC answered something unexpected. Update AntiGem in VS Code.") }
+        val session = start.optString("session").ifBlank { throw PairingException("The PC answered something unexpected. Update TerMo in VS Code.") }
         val keys = try {
             side.finish(start.getString("y"))
         } catch (e: Exception) {
-            throw PairingException("The PC answered something unexpected. Update AntiGem in VS Code.")
+            throw PairingException("The PC answered something unexpected. Update TerMo in VS Code.")
         }
         val pcConfirm = runCatching { PcPairingCrypto.fromHex(start.getString("confirm")) }.getOrNull()
         if (pcConfirm == null || !PcPairingCrypto.same(pcConfirm, keys.pcConfirm)) {
@@ -372,7 +372,7 @@ object PcConnect {
         val chosen = chooseHostKey(hostKeys) ?: throw PairingException("The PC's SSH server sent no key this app can use.")
         val reported = info.optJSONArray("addresses")?.let { a -> (0 until a.length()).map { a.getString(it) } }.orEmpty()
         val now = System.currentTimeMillis()
-        val pcId = info.optString("pcId").ifBlank { throw PairingException("The PC's answer is incomplete. Update AntiGem in VS Code.") }
+        val pcId = info.optString("pcId").ifBlank { throw PairingException("The PC's answer is incomplete. Update TerMo in VS Code.") }
         val pc = PairedPc(
             id = pcId,
             name = info.optString("pcName").ifBlank { "PC" },
@@ -447,19 +447,19 @@ object PcConnect {
             if (code !in 200..299) {
                 val msg = json?.optString("error")?.takeIf { it.isNotBlank() }
                 throw PairingException(msg ?: when (code) {
-                    404 -> "This PC is not pairing right now. Open \"Connect phone\" in AntiGem on the PC."
+                    404 -> "This PC is not pairing right now. Open \"Connect phone\" in TerMo on the PC."
                     410 -> "The code expired. Use the new code shown on the PC."
                     423 -> "Too many wrong codes. Use the new code shown on the PC."
                     else -> "The PC refused the pairing (HTTP $code)."
                 })
             }
-            return json ?: throw PairingException("The PC answered something unexpected. Update AntiGem in VS Code.")
+            return json ?: throw PairingException("The PC answered something unexpected. Update TerMo in VS Code.")
         } catch (e: PairingException) {
             throw e
         } catch (e: java.net.SocketTimeoutException) {
             throw PairingException("The PC did not answer. Are both on the same Wi-Fi?")
         } catch (e: java.io.IOException) {
-            throw PairingException("Cannot reach the PC (${e.message ?: "network error"}). Is \"Connect phone\" open in AntiGem on the PC?")
+            throw PairingException("Cannot reach the PC (${e.message ?: "network error"}). Is \"Connect phone\" open in TerMo on the PC?")
         } finally {
             c.disconnect()
         }
@@ -552,7 +552,7 @@ object PcConnect {
     fun ownModeLabel(): String = when {
         AuthPreferences.storedRemoteMode -> "Use my server"
         ai.antigem.data.local.chroot.ChrootManager.isActiveNow() -> "Use this phone (Ubuntu chroot)"
-        appContext?.let { ai.antigem.data.local.LocalEnvironmentManager.isTermuxInstalled(it) } == true -> "Use this phone (AntiGem)"
+        appContext?.let { ai.antigem.data.local.LocalEnvironmentManager.isTermuxInstalled(it) } == true -> "Use this phone (TerMo)"
         else -> "Use this phone"
     }
 

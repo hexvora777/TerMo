@@ -86,7 +86,7 @@ object ChrootSetup {
         val argText = args.joinToString(" ") { quote(it) }
         // the pid file goes when the script ends: a stale one must never point Stop at a process that reused the id
         val command = "cd ${quote(dir)} || exit 1\n" +
-            "setsid -w /usr/bin/env ANTIGEM_RUNTIME=chroot ANTIGEM_USER=${quote(install.user)} " +
+            "setsid -w /usr/bin/env TERMO_RUNTIME=chroot TERMO_USER=${quote(install.user)} " +
             "/bin/bash -c 'echo \$\$ > .task.pid; exec /bin/bash ./${script} \"\$@\"' _ $argText < /dev/null 2>&1\n" +
             "rc=\$?; rm -f .task.pid; exit \$rc"
         return ChrootManager.runCtl(context, execArgs(install, asUser = false, script = command), onLine = onLine, timeoutMs = timeoutMs)
@@ -109,7 +109,7 @@ object ChrootSetup {
      */
     suspend fun status(context: Context, install: ChrootInstall, dir: String, script: String): Map<String, String>? {
         val command = "cd ${quote(dir)} 2>/dev/null && [ -f ./$script ] || exit 3\n" +
-            "ANTIGEM_RUNTIME=chroot ANTIGEM_USER=${quote(install.user)} exec /bin/bash ./$script status 2>/dev/null"
+            "TERMO_RUNTIME=chroot TERMO_USER=${quote(install.user)} exec /bin/bash ./$script status 2>/dev/null"
         val r = ChrootManager.runCtl(context, execArgs(install, asUser = false, script = command), timeoutMs = 30_000L)
         if (!r.ok) return null
         return r.out.mapNotNull { line ->

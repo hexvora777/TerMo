@@ -787,7 +787,7 @@ class MainActivity : ComponentActivity() {
                 chatViewModel.loadSharedConversationFromUri(this, item.uri!!)
                 return
             }
-            // a mini app package opened with / shared to "AntiGem" instead of "Mini app installer": install it
+            // a mini app package opened with / shared to "TerMo" instead of "Mini app installer": install it
             if (lower.endsWith(".agapp") || intent.type == ai.antigem.data.miniapps.MiniAppSigning.MIME) {
                 startActivity(Intent(this, ai.antigem.ui.miniapps.MiniAppInstallActivity::class.java).setAction(Intent.ACTION_VIEW)
                     .setDataAndType(item.uri, ai.antigem.data.miniapps.MiniAppSigning.MIME).addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))
