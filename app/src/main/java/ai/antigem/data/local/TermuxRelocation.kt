@@ -26,10 +26,10 @@ object TermuxRelocation {
     const val TERMUX_PACKAGE = "com.termux"
 
     /**
-     * The release app's package name. A rootfs or backup made by it holds /data/data/ai.antigem paths instead of
-     * com.termux ones; a debug install (ai.antidev) rewrites those paths too ([relocateTree] with releasePaths).
+     * The release app's package name. A rootfs or backup made by it holds /data/data/com.termox paths instead of
+     * com.termux ones; a debug install (com.termov) rewrites those paths too ([relocateTree] with releasePaths).
      */
-    private const val RELEASE_PACKAGE = "ai.antigem"
+    private const val RELEASE_PACKAGE = "com.termox"
 
     /** Zip-based files keep CRCs and dex files a checksum: rewriting bytes in them would corrupt them, so they are skipped. */
     private val SKIPPED_EXTENSIONS = setOf("apk", "jar", "zip", "aar", "whl", "dex", "jmod")

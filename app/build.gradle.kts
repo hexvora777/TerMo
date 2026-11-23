@@ -135,7 +135,7 @@ android {
     compileSdk = 37
     compileSdkMinor = 1
     defaultConfig {
-        applicationId = "ai.antigem"
+        applicationId = "com.termox"
         minSdk = 24
         targetSdk = 28
         versionCode = appVersionCode
@@ -757,11 +757,11 @@ androidComponents {
     onVariants { variant ->
         variant.sources.kotlin?.addGeneratedSourceDirectory(generateChangelog, GenerateChangelogTask::outputDir)
 
-        // Debug builds are their own app, ai.antidev ("AntiGem Dev"), so they install next to the release one. It must
+        // Debug builds are their own app, com.termov ("TerMo Dev"), so they install next to the release one. It must
         // have the length of com.termux (10): the Termux packages are rewritten for it byte for byte.
-        // TEMPORARY: x86_64 debug builds stay ai.antigem while the x86_64 rootfs is made on the emulator (its backup
-        // must have ai.antigem paths). Remove `&& !isX86` once that rootfs is hosted.
-        if (variant.buildType == "debug" && !isX86) variant.applicationId.set("ai.antidev")
+        // TEMPORARY: x86_64 debug builds stay com.termox while the x86_64 rootfs is made on the emulator (its backup
+        // must have com.termox paths). Remove `&& !isX86` once that rootfs is hosted.
+        if (variant.buildType == "debug" && !isX86) variant.applicationId.set("com.termov")
 
         val amBuildType = if (variant.buildType == "release") "release" else "debug"
         val termuxAm = tasks.register<TermuxAmAssetTask>("termuxAm${variant.name.replaceFirstChar { it.uppercase() }}") {
